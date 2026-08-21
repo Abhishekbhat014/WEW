@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,400&family=Fira+Code:wght@300..700&family=Inter:wght@100..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&family=Outfit:wght@100..900&family=Pacifico&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>WEW</title>
+    <script>
+      (function () {
+        try {
+          var savedTheme = localStorage.getItem("webdraw_theme_preference");
+          if (
+            savedTheme !== "light" &&
+            savedTheme !== "dark" &&
+            savedTheme !== "system"
+          ) {
+            savedTheme = "system";
+          }
+          var resolvedTheme = savedTheme;
+          if (savedTheme === "system") {
+            resolvedTheme = window.matchMedia("(prefers-color-scheme: dark)")
+              .matches
+              ? "dark"
+              : "light";
+          }
+          document.documentElement.setAttribute("data-theme", resolvedTheme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- Splash loader: lives outside #root, dismissed by main.tsx -->
+    <style>
+      @keyframes wd-loader-pulse {
+        0%,
+        100% {
+          opacity: 0.4;
+          transform: scale(0.92);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes wd-loader-fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes wd-loader-fade-out {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      #wd-splash {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        animation: wd-loader-fade-in 0.3s ease-out;
+        background-color: #fafafa;
+        color: #171717;
+        transition: opacity 0.35s ease-out;
+      }
+      [data-theme="dark"] #wd-splash {
+        background-color: #171717;
+        color: #fafafa;
+      }
+      #wd-splash img {
+        width: 48px;
+        height: 48px;
+        animation: wd-loader-pulse 1.6s ease-in-out infinite;
+      }
+      #wd-splash.wd-hiding {
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
+    <div id="wd-splash" aria-label="Loading WebDraw..." role="status">
+      <img
+        src="/src/assets/logo.svg"
+        alt="WebDraw Logo"
+        width="48"
+        height="48"
+      />
+    </div>
+    <script>
+      // Record load start time and whether this is the first visit in this session
+      window.__WD_BOOT = {
+        start: Date.now(),
+        isFirstLaunch: !sessionStorage.getItem("wd_launched"),
+      };
+      sessionStorage.setItem("wd_launched", "1");
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-active: var(--surface-active);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-disabled: var(--text-disabled);
+  --color-icon: var(--icon);
+  --color-icon-muted: var(--icon-muted);
+  --color-icon-active: var(--icon-active);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-active: var(--accent-active);
+  --color-input-background: var(--input-background);
+  --color-input-border: var(--input-border);
+  --color-input-focus: var(--input-focus);
+  --color-button-background: var(--button-background);
+  --color-button-hover: var(--button-hover);
+  --color-selection: var(--selection);
+  --color-selection-border: var(--selection-border);
+  --color-selection-handle: var(--selection-handle);
+  --color-canvas-background: var(--canvas-background);
+  --color-canvas-grid: var(--canvas-grid);
+  --color-popover-background: var(--popover-background);
+  --color-popover-border: var(--popover-border);
+  --color-tooltip-background: var(--tooltip-background);
+  --color-tooltip-foreground: var(--tooltip-foreground);
+  --color-scrollbar-track: var(--scrollbar-track);
+  --color-scrollbar-thumb: var(--scrollbar-thumb);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+}
+
+@layer base {
+  :root {
+    --background: #fafafa;
+    --foreground: #171717;
+    --surface: #ffffff;
+    --surface-elevated: #ffffff;
+    --surface-hover: #f5f5f5;
+    --surface-active: #e5e5e5;
+    --border: #e5e5e5;
+    --border-subtle: #fafafa;
+    --border-strong: #d4d4d4;
+    --text-primary: #171717;
+    --text-secondary: #525252;
+    --text-muted: #737373;
+    --text-disabled: #a3a3a3;
+    --icon: #525252;
+    --icon-muted: #a3a3a3;
+    --icon-active: #171717;
+    --accent: #404040;
+    --accent-hover: #262626;
+    --accent-active: #171717;
+    --input-background: #ffffff;
+    --input-border: #e5e5e5;
+    --input-focus: #404040;
+    --button-background: #ffffff;
+    --button-hover: #f5f5f5;
+    --selection: rgba(82, 82, 82, 0.1);
+    --selection-border: #404040;
+    --selection-handle: #ffffff;
+    --canvas-background: #ffffff;
+    --canvas-grid: #e5e5e5;
+    --popover-background: #ffffff;
+    --popover-border: #e5e5e5;
+    --tooltip-background: #262626;
+    --tooltip-foreground: #ffffff;
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: rgba(163, 163, 163, 0.4);
+    --scrollbar-thumb-hover: rgba(82, 82, 82, 0.7);
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --success: #10b981;
+  }
+
+  [data-theme='dark'] {
+    --background: #171717;
+    --foreground: #fafafa;
+    --surface: #262626;
+    --surface-elevated: #404040;
+    --surface-hover: #404040;
+    --surface-active: #525252;
+    --border: #404040;
+    --border-subtle: #262626;
+    --border-strong: #525252;
+    --text-primary: #fafafa;
+    --text-secondary: #d4d4d4;
+    --text-muted: #a3a3a3;
+    --text-disabled: #737373;
+    --icon: #d4d4d4;
+    --icon-muted: #737373;
+    --icon-active: #fafafa;
+    --accent: #525252;
+    --accent-hover: #737373;
+    --accent-active: #a3a3a3;
+    --input-background: #171717;
+    --input-border: #404040;
+    --input-focus: #a3a3a3;
+    --button-background: #262626;
+    --button-hover: #404040;
+    --selection: rgba(163, 163, 163, 0.2);
+    --selection-border: #a3a3a3;
+    --selection-handle: #262626;
+    --canvas-background: #121212;
+    --canvas-grid: rgba(255, 255, 255, 0.14);
+    --popover-background: #262626;
+    --popover-border: #404040;
+    --tooltip-background: #0a0a0a;
+    --tooltip-foreground: #fafafa;
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: rgba(163, 163, 163, 0.4);
+    --scrollbar-thumb-hover: rgba(163, 163, 163, 0.7);
+    --danger: #f87171;
+    --warning: #fbbf24;
+    --success: #34d399;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased overflow-hidden select-none font-sans;
+  }
+
+  /* Ensure Fabric canvas containers are transparent so GridOverlay canvas is 100% visible */
+  .canvas-container {
+    background-color: transparent !important;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+
+  .lower-canvas,
+  .upper-canvas {
+    background-color: transparent !important;
+  }
+
+  /* Aesthetic Modern Scrollbars */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  /* Hide native number input spin buttons */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.4);
+    border-radius: 9999px;
+    transition: background 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.7);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+  }
+
+  /* High-contrast hand sign cursors with solid white fill & black outline for sliders */
+  .cursor-grab,
+  [role="slider"],
+  input[type="range"],
+  [style*="cursor: grab"],
+  [style*="cursor:grab"] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M18 11V6a1.5 1.5 0 0 0-3 0v4.5M15 10.5V4a1.5 1.5 0 0 0-3 0v6.5M12 10.5V5a1.5 1.5 0 0 0-3 0v7.5M9 12.5V8.5a1.5 1.5 0 0 0-3 0v6.5c0 4 3 6.5 7 6.5s7-2.5 7-6.5V11z' fill='%23ffffff' stroke='%23000000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 12 12, grab !important;
+  }
+
+  .cursor-grabbing,
+  .cursor-grab:active,
+  [role="slider"]:active,
+  input[type="range"]:active,
+  [style*="cursor: grabbing"],
+  [style*="cursor:grabbing"] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M18 11.5v2c0 4-3 6.5-7 6.5s-7-2.5-7-6.5v-3a1.5 1.5 0 0 1 3 0v.5M9 11v-1a1.5 1.5 0 0 1 3 0v1M12 11v-1a1.5 1.5 0 0 1 3 0v1M15 11v.5' fill='%23ffffff' stroke='%23000000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 12 12, grabbing !important;
+  }
+}
